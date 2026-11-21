@@ -36,11 +36,11 @@ pi install ~/pi-update-summary
 /update-summary pi         # the running pi build
 ```
 
-For npm packages the command collects published GitHub releases, `CHANGELOG.md`, the commits between the installed and latest version, and a changelog section from the readme. When none of those exist it falls back to recent commits and then to the readme. For git-installed packages it reads the pending commits, recent commits, and a local `CHANGELOG.md`.
+For npm packages the command collects published GitHub releases, `CHANGELOG.md`, the commits between the installed and latest version, and a changelog section from the readme. Releases older than the installed version are left out. When none of those sources exist it falls back to recent commits and then to the readme. For git-installed packages it reads the pending commits, recent commits, and a local `CHANGELOG.md`.
 
 pi itself is not listed in `settings.json`. The command compares the running build against `@earendil-works/pi-coding-agent` on npm, reports it as `pi` when a newer version exists, and uses GitHub releases only — the repository is a monorepo whose commit log mixes unrelated packages.
 
-Each run writes one directory per package under `os.tmpdir()/pi/update-summary/<run-id>/`, with one file per source (`releases.md`, `changelog.md`, `commits.md`, `readme-changelog.md`, `recent-commits.md`, `readme.md`). Nothing is truncated. The injected message is visible in the transcript, expands to the file list, and tells the model to read the files instead of fetching the same sources again over the network. A package where nothing could be fetched is listed without a file, so an empty result is distinguishable from "nothing changed". The directory lives under the OS temp directory and is left in place for the session.
+Each run writes one directory per package under `os.tmpdir()/pi/update-summary/<run-id>/`, with one file per source (`releases.md`, `changelog.md`, `commits.md`, `readme-changelog.md`, `recent-commits.md`, `readme.md`). Each written source is complete. The injected message is visible in the transcript, expands to the file list, and tells the model to read the files instead of fetching the same sources again over the network. A package where nothing could be fetched is listed without a file, so an empty result is distinguishable from "nothing changed". The directory lives under the OS temp directory and is left in place for the session.
 
 On the first run in a fresh session the command also names the session `[YYMMDD] Update Summary`, so it is easy to spot in the session list.
 

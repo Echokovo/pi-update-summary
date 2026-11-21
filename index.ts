@@ -298,8 +298,18 @@ async function fetchGitHubReleases(ownerSlashRepo: string, installedVersion?: st
     if (!response.ok) return null;
     const releases = (await response.json()) as any[];
     if (!releases.length) return null;
-    
-    return releases.slice(0, 15).map((r: any) => {
+
+    let visible = releases.slice(0, 15);
+    if (installedVersion) {
+      const installedIndex = visible.findIndex(
+        (r: any) => r.tag_name === installedVersion || r.tag_name === `v${installedVersion}`,
+      );
+      // Releases older than the installed version are not part of the update. Tags that do not
+      // match (or are missing from the first page) keep the full list.
+      if (installedIndex >= 0) visible = visible.slice(0, installedIndex + 1);
+    }
+
+    return visible.map((r: any) => {
       let title = `## ${r.tag_name} (${r.published_at?.slice(0, 10) ?? "unknown"})`;
       if (installedVersion && (r.tag_name === installedVersion || r.tag_name === `v${installedVersion}`)) {
         title += `  <-- INSTALLED VERSION`;

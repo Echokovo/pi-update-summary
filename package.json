@@ -1,7 +1,7 @@
 {
-  "name": "@echokovo/pi-update-changelog",
-  "version": "0.2.0",
-  "description": "View changelogs and update installed Pi packages interactively.",
+  "name": "@echokovo/pi-update-summary",
+  "version": "0.3.0",
+  "description": "Summarize changelogs for installed Pi package updates on demand.",
   "license": "MIT",
   "type": "module",
   "keywords": [
@@ -13,14 +13,11 @@
     "settings.ts",
     "summary.ts",
     "changelog-store.ts",
-    "README.md",
-    "demo.gif",
-    "demo1.png",
-    "demo2.png"
+    "README.md"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Echokovo/pi-update-changelog.git"
+    "url": "git+https://github.com/Echokovo/pi-update-summary.git"
   },
   "publishConfig": {
     "access": "public"
@@ -28,8 +25,7 @@
   "pi": {
     "extensions": [
       "./index.ts"
-    ],
-    "image": "https://raw.githubusercontent.com/Echokovo/pi-update-changelog/main/demo1.png"
+    ]
   },
   "scripts": {
     "test": "node --test *.test.ts",
@@ -43,8 +39,8 @@
     "typebox": "*"
   },
   "devDependencies": {
-    "@earendil-works/pi-coding-agent": "^0.84.3",
-    "@earendil-works/pi-tui": "^0.84.3",
+    "@earendil-works/pi-coding-agent": "^1.6.0",
+    "@earendil-works/pi-tui": "^1.6.0",
     "@types/node": "^24.0.0",
     "typebox": "^1.3.7",
     "typescript": "^6.0.3"

@@ -14,7 +14,7 @@ function formatBytes(bytes: number): string {
 }
 
 /**
- * Builds the message that `/update-changelog-summary` injects.
+ * Builds the message that `/update-summary` injects.
  *
  * The changelogs were downloaded and written to disk before this runs, so the message hands over
  * paths and metadata rather than truncated text: the model reads the files it needs and has no
@@ -51,10 +51,10 @@ export function buildSummaryPrompt(store: ChangelogStore): string {
   ].join("\n");
 }
 
-/** Session name for the first `/update-changelog-summary` run of an unnamed session. */
+/** Session name for the first `/update-summary` run of an unnamed session. */
 export function summarySessionName(date: Date): string {
   const yy = String(date.getFullYear()).slice(-2);
   const mm = String(date.getMonth() + 1).padStart(2, "0");
   const dd = String(date.getDate()).padStart(2, "0");
-  return `[${yy}${mm}${dd}] Update Changelog Summary`;
+  return `[${yy}${mm}${dd}] Update Summary`;
 }

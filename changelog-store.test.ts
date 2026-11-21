@@ -6,7 +6,7 @@ import { test } from "node:test";
 import { changelogDirName, renderSourceFile, writeChangelogFiles, type UpdateSummary } from "./changelog-store.ts";
 
 async function withTempDir(run: (dir: string) => Promise<void>): Promise<void> {
-	const dir = await mkdtemp(join(tmpdir(), "update-changelog-store-"));
+	const dir = await mkdtemp(join(tmpdir(), "update-summary-store-"));
 	try {
 		await run(dir);
 	} finally {

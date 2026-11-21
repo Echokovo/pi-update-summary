@@ -1,5 +1,5 @@
 /**
- * On-disk store for the changelogs `/update-changelog-summary` fetches.
+ * On-disk store for the changelogs `/update-summary` fetches.
  *
  * The model must not re-fetch what the extension already downloaded, so every source is written
  * to a local file and the injected message carries paths instead of truncated text. Files live
@@ -84,7 +84,7 @@ function uniqueDirName(name: string, used: Set<string>): string {
  * model. `dir` is only passed by tests; production runs get a fresh timestamped directory.
  */
 export async function writeChangelogFiles(summaries: UpdateSummary[], dir?: string): Promise<ChangelogStore> {
-  const root = dir ?? join(tmpdir(), "pi", "update-changelog", createRunId());
+  const root = dir ?? join(tmpdir(), "pi", "update-summary", createRunId());
   // The prompt names this directory even when no package produced a file, so it must exist.
   await mkdir(root, { recursive: true });
   const usedNames = new Set<string>();
